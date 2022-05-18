@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -59,7 +59,8 @@ const Car = (props) => {
                                 </td>
                                 <td className="celda">
                                     {
-                                        (image == null) ? 'Sin imagen' : <img className="carImage" src={image}/>
+                                        (image === null) ?
+                                            'Sin imagen' : <img className="carImage" src={image}/>
                                     }
                                 </td>
                                 <td className="celda">

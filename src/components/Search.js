@@ -87,11 +87,16 @@ const Search = (props) => {
                 <br/><br/>
                 <b>Alquilado:</b>&nbsp;
                 {
-                    (props.searchedCar.isRented === undefined) ? "" : (props.searchedCar.isRented === 1) ?
-                        'El coche está alquilado' : 'Coche disponible'
+                    (props.searchedCar.isRented === undefined) ? 
+                        "" : (props.searchedCar.isRented === 1) ?
+                            'El coche está alquilado' : 'Coche disponible'
                 }
                 <br/><br/>
-                <b>Imagen:</b>&nbsp;{props.searchedCar.image}
+                <b>Imagen:</b>&nbsp;
+                {
+                    (props.searchedCar.image === null) ?
+                        'Sin imagen' : <img className="carImage" src={props.searchedCar.image}/>
+                }
             </div>
         </div>
     );
