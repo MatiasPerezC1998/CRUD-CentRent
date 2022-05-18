@@ -1,44 +1,44 @@
 // Import de la configuración de JuanPedro (Teams)
 import { getFormData, getItemFormData, getQueryString } from '../../config';
 
-const url = 'https://localhost:7295/Customer/';
+const url = 'https://localhost:7295/';
 
-export const SEARCH_GET_START = "SEARCH_GET_START";
-export const SEARCH_GET_SUCCES = "SEARCH_GET_SUCCES";
-export const SEARCH_GET_ERROR = "SEARCH_GET_ERROR";
+export const SEARCH_CUSTOMER_START = "SEARCH_CUSTOMER_START";
+export const SEARCH_CUSTOMER_SUCCES = "SEARCH_CUSTOMER_SUCCES";
+export const SEARCH_CUSTOMER_ERROR = "SEARCH_CUSTOMER_ERROR";
 export const searchCustomer = (email) => (dispatch) => {
 
     dispatch({
-        type: SEARCH_GET_START,
+        type: SEARCH_CUSTOMER_START,
         payload: {
-            loadSearch: true,
-            searched: false,
+            customerSearch: true,
+            customerFound: false,
             message: 'Buscando cliente'
         }
     });
 
-    const getData = async () => {
+    const getCustomerData = async () => {
         try {
-            const res = await fetch(url + `Email/${email}`);
+            const res = await fetch(url + `Customer/Email/${email}`);
             const data = await res.json();
 
             if (res.status !== 200)
             {
                 dispatch({
-                    type: SEARCH_GET_ERROR,
+                    type: SEARCH_CUSTOMER_ERROR,
                     payload: {
-                        loadSearch: false,
-                        searched: false,
-                        message: 'Error, no se pudo encontrar al cliente'
+                        customerSearch: false,
+                        customerFound: false,
+                        message: 'Error, no se pudo encontrar el cliente'
                     }
                 });
             } else {
                 dispatch({
-                    type: SEARCH_GET_SUCCES,
+                    type: SEARCH_CUSTOMER_SUCCES,
                     payload: {
                         customer: data,
-                        loadSearch: false,
-                        searched: true,
+                        customerSearch: false,
+                        customerFound: true,
                         message: 'Cliente encontrado correctamente'
                     }
                 });
@@ -47,5 +47,52 @@ export const searchCustomer = (email) => (dispatch) => {
             console.log("action error: " + error);
         }
     }
-    getData();
+    getCustomerData();
+}
+
+export const SEARCH_CAR_START = "SEARCH_CAR_START";
+export const SEARCH_CAR_SUCCES = "SEARCH_CAR_SUCCES";
+export const SEARCH_CAR_ERROR = "SEARCH_CAR_ERROR";
+export const searchCar = (registration) => (dispatch) => {
+
+    dispatch({
+        type: SEARCH_CAR_START,
+        payload: {
+            carSearch: true,
+            carFound: false,
+            message: 'Buscando coche'
+        }
+    });
+
+    const getCarData = async () => {
+        try {
+            const res = await fetch(url + `Car/Registration/${registration}`);
+            const data = await res.json();
+
+            if (res.status !== 200)
+            {
+                dispatch({
+                    type: SEARCH_CAR_ERROR,
+                    payload: {
+                        carSearch: false,
+                        carFound: false,
+                        message: 'Error, no se pudo encontrar el coche'
+                    }
+                });
+            } else {
+                dispatch({
+                    type: SEARCH_CAR_SUCCES,
+                    payload: {
+                        car: data,
+                        carSearch: false,
+                        carFound: true,
+                        message: 'Coche encontrado correctamente'
+                    }
+                });
+            }
+        } catch (error) {
+            console.log("action error: " + error);
+        }
+    }
+    getCarData();
 }

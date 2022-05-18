@@ -80,17 +80,32 @@ code {
     margin-top: 5%
 }
 
-.searchInfo {
+.searchCustomerInfo {
     position: absolute;
     top: 40%;
-    margin-left: 45%;
-    margin-right: 45%;
+    margin-left: 25%;
+    margin-right: 65%;
+}
+
+.searchCarInfo {
+    position: absolute;
+    top: 40%;
+    margin-left: 65%;
+    margin-right: 25%;
 }
 
 .searchCustomerForm {
     position: absolute;
     top: 20%;
-    right: 45%;
-    left: 45%;
+    margin-left: 25%;
+    margin-right: 65%;
+    text-align: center;
+}
+
+.searchCarForm {
+    position: absolute;
+    top: 20%;
+    margin-left: 65%;
+    margin-right: 25%;
     text-align: center;
 }

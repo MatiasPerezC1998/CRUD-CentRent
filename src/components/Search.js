@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { searchCustomer } from '../redux/actions/searchAction';
+import { searchCustomer, searchCar } from '../redux/actions/searchAction';
 import { carsData } from '../redux/actions/carAction';
 
 import '../Styles.css';
@@ -10,29 +10,36 @@ const Search = (props) => {
 
     // HOOKS
     const [email, setEmail] = useState("");
+    const [registration, setRegistration] = useState("");
 
     // EVENTS
-    const handleSubmit = (e) => {
+    const handleCustomerSubmit = (e) => {
         e.preventDefault();
-        props.searchGet(email);
+        props.searchCustomer(email);
         props.carsData(props.cars);
+    }
+
+    const handleCarSubmit = (e) => {
+        e.preventDefault();
+        props.searchCar(registration);
     }
 
     // BODY
     return (
         <div>
+            {/* SEARCH CUSTOMER FORM */}
             <div>
-                <form className="searchCustomerForm" onSubmit={handleSubmit}>
+                <form className="searchCustomerForm" onSubmit={handleCustomerSubmit}>
                     Buscar un cliente:
-                    <input type="text" placeholder="Email"
-                        onChange={e => setEmail(e.target.value)}/>
+                    <input type="text" placeholder="Correo Electrónico"
+                        onChange={e => setEmail(e.target.value)} />
                     <br/><br/>
-                    <button type="submit">Enviar</button>
+                    <button type="submit">Buscar</button>
                 </form>
             </div>
             <br/>
             <span></span>
-            <div className="searchInfo">
+            <div className="searchCustomerInfo">
                 <b>Id:</b>&nbsp;{props.customer.id}
                 <br/><br/>
                 <b>Name:</b>&nbsp;{props.customer.name}
@@ -54,6 +61,36 @@ const Search = (props) => {
                     : 'No tiene ningun coche alquilado'
                 }
             </div>
+
+            {/* SEARCH CAR FORM */}
+            <div>
+                <form className="searchCarForm" onSubmit={handleCarSubmit}>
+                    Buscar un coche:
+                    <input type="text" placeholder="Matrícula"
+                        onChange={e => setRegistration(e.target.value)} />
+                    <br/><br/>
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
+            <br/>
+            <span></span>
+            <div className="searchCarInfo">
+                <b>Id:</b>&nbsp;{props.searchedCar.id}
+                <br/><br/>
+                <b>Nombre:</b>&nbsp;{props.searchedCar.name}
+                <br/><br/>
+                <b>Marca:</b>&nbsp;{props.searchedCar.brand}
+                <br/><br/>
+                <b>Tipo:</b>&nbsp;{props.searchedCar.type}
+                <br/><br/>
+                <b>Matrícula:</b>&nbsp;{props.searchedCar.registration}
+                <br/><br/>
+                <b>Alquilado:</b>&nbsp;
+                {
+                    (props.searchedCar.isRented === 1) ? 
+                        'El coche está alquilado' : 'Coche disponible'
+                }
+            </div>
         </div>
     );
 }
@@ -61,10 +98,13 @@ const Search = (props) => {
 const mapStateToProps = (state) => {
     return {
         // Search InitialState
-        loadSearch: state.searchReducer.loadSearch,
-        searched: state.searchReducer.searched,
+        customerSearch: state.searchReducer.customerSearch,
+        customerFound: state.searchReducer.customerFound,
+        carSearch: state.searchReducer.carSearch,
+        carFound: state.searchReducer.carFound,
         message: state.searchReducer.message,
         customer: state.searchReducer.customer,
+        searchedCar: state.searchReducer.car,
 
         // Cars InitialState
         getCars: state.carReducer.getCars,
@@ -80,6 +120,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     // Search Actions
     searchCustomer,
+    searchCar,
 
     // Car Actions
     carsData
