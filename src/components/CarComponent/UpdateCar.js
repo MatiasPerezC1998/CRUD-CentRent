@@ -10,18 +10,19 @@ const UpdateCar = (props) => {
     // HOOKS
     const navigate = useNavigate();
     const { state } = useLocation();
-    const { id, name, brand, type, registration, isRented } = state;
+    const { id, name, brand, type, registration, isRented, image } = state;
     const [updateName, setName] = useState(name);
     const [updateBrand, setBrand] = useState(brand);
     const [updateType, setType] = useState(type);
     const [updateRegistration, setRegistration] = useState(registration);
     const [updateIsRented, setIsRented] = useState(isRented);
+    const [updateImage, setImage] = useState((image !== null) ? image : '');
 
     // EVENTS
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsRented(0);
-        props.carUpdated(id, updateName, updateBrand, updateType, updateRegistration, updateIsRented);
+        props.carUpdated(id, updateName, updateBrand, updateType, updateRegistration, updateIsRented, updateImage);
         navigate("/Car");
     }
 
@@ -60,13 +61,13 @@ const UpdateCar = (props) => {
                                     onChange={e => setRegistration(e.target.value)}/>
                             </td>
                         </tr>
-                        {/* <tr>
-                            <td className="header">Alquilado</td>
+                        <tr>
+                            <td className="header">Imagen</td>
                             <td className="celda">
-                                <input type="checkbox" name={"isRented"} value={isRented}
-                                    onChange={e => (e.target.checked) ? setIsRented(1) : setIsRented(0)}/>
+                                <input type="text" name={"image"} value={updateImage}
+                                    onChange={e => setImage(e.target.value)} />
                             </td>
-                        </tr> */}
+                        </tr>
                     </tbody>
                 </table>
 

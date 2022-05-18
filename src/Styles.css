@@ -109,3 +109,8 @@ code {
     margin-right: 25%;
     text-align: center;
 }
+
+.carImage {
+    height: 150px;
+    width: 150px;
+}

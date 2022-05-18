@@ -9,30 +9,20 @@ const Car = (props) => {
 
     // HOOKS
     const navigate = useNavigate();
-    // const [name, setName] = useState('');
-    // const [brand, setBrand] = useState('');
-    // const [type, setType] = useState('');
-    // const [registration, setRegistration] = useState('');
-    // let [isRented, setIsRented] = useState('');
 
     // EVENTOS
     useEffect(() => {
         props.carsData(props.cars);
     }, []);
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     isRented == true ? setIsRented(1) : setIsRented(0);
-    // }
-
     const handleClickAdd = () => {
         navigate("/AddCar");
     }
 
-    const handleClickUpdate = (id, name, brand, type, registration, isRented) => {
+    const handleClickUpdate = (id, name, brand, type, registration, isRented, image) => {
         navigate("/UpdateCar", {
             state: {
-                id, name, brand, type, registration, isRented
+                id, name, brand, type, registration, isRented, image
             }
         });
     }
@@ -49,24 +39,32 @@ const Car = (props) => {
                         <td className="header">Tipo</td>
                         <td className="header">Matrícula</td>
                         <td className="header">Alquilado</td>
+                        <td className="header">Imagen</td>
                         <td className="header">Modificar</td>
                         <td className="header">Eliminar</td>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        props.cars ? props.cars.map(({ id, name, brand, type, registration, isRented }) => {
+                        props.cars ? props.cars.map(({ id, name, brand, type, registration, isRented, image }) => {
                             return <tr className="celda" key={registration}>
                                 <td className="celda">{name}</td>
                                 <td className="celda">{brand}</td>
                                 <td className="celda">{type}</td>
                                 <td className="celda">{registration}</td>
-                                <td className="celda">{
-                                    isRented===1 ? "Si" : "No"
-                                }</td>
+                                <td className="celda">
+                                    {
+                                        (isRented===1) ? "Si" : "No"
+                                    }
+                                </td>
+                                <td className="celda">
+                                    {
+                                        (image == null) ? 'Sin imagen' : <img className="carImage" src={image}/>
+                                    }
+                                </td>
                                 <td className="celda">
                                     <button className="btnUpdate" name={"btnUpdate"+id}
-                                        onClick={() => handleClickUpdate(id, name, brand, type, registration, isRented)}>
+                                        onClick={() => handleClickUpdate(id, name, brand, type, registration, isRented, image)}>
                                         Modificar
                                     </button>
                                 </td>

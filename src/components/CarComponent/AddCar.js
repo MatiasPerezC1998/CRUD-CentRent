@@ -14,14 +14,17 @@ const AddCar = (props) => {
     const [type, setType] = useState('');
     const [registration, setRegistration] = useState('');
     const [isRented, setIsRented] = useState('');
+    const [image, setImage] = useState('');
 
     // EVENTS
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsRented(0);
-        props.carAdded(name, brand, type, registration, isRented);
+        props.carAdded(name, brand, type, registration, isRented, image);
         navigate("/Car");
     }
+
+    console.log(image);
 
     // BODY
     return (
@@ -58,13 +61,13 @@ const AddCar = (props) => {
                                     onChange={e => setRegistration(e.target.value)} />
                             </td>
                         </tr>
-                        {/* <tr>
-                            <td className="header">Alquilado</td>
+                        <tr>
+                            <td className="header">Imagen</td>
                             <td className="celda">
-                                <input type="checkbox" name={"isRented"} value={isRented}
-                                    onChange={e => (e.target.checked) ? setIsRented(1) : setIsRented(0)} />
+                                <input type="text" name={"image"} value={image}
+                                    onChange={e => setImage(e.target.value)} />
                             </td>
-                        </tr> */}
+                        </tr>
                     </tbody>
                 </table>
 

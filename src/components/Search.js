@@ -87,9 +87,11 @@ const Search = (props) => {
                 <br/><br/>
                 <b>Alquilado:</b>&nbsp;
                 {
-                    (props.searchedCar.isRented === 1) ? 
+                    (props.searchedCar.isRented === undefined) ? "" : (props.searchedCar.isRented === 1) ?
                         'El coche está alquilado' : 'Coche disponible'
                 }
+                <br/><br/>
+                <b>Imagen:</b>&nbsp;{props.searchedCar.image}
             </div>
         </div>
     );
@@ -102,7 +104,7 @@ const mapStateToProps = (state) => {
         customerFound: state.searchReducer.customerFound,
         carSearch: state.searchReducer.carSearch,
         carFound: state.searchReducer.carFound,
-        message: state.searchReducer.message,
+        searchMessage: state.searchReducer.message,
         customer: state.searchReducer.customer,
         searchedCar: state.searchReducer.car,
 
@@ -111,7 +113,7 @@ const mapStateToProps = (state) => {
         postCars: state.carReducer.postCars,
         updateCars: state.carReducer.updateCars,
         deleteCars: state.carReducer.deleteCars,
-        message: state.carReducer.message,
+        carsMessage: state.carReducer.message,
         cars: state.carReducer.cars,
         car: state.carReducer.car
     }
