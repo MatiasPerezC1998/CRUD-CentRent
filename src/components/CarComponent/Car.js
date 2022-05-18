@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { carsGet, carsPost, carsDelete } from '../../redux/actions/carAction';
+import { carsData, carDeleted } from '../../redux/actions/carAction';
 import '../../Styles.css';
 
 const Car = (props) => {
@@ -17,13 +17,12 @@ const Car = (props) => {
 
     // EVENTOS
     useEffect(() => {
-        props.carsGet(props.cars);
+        props.carsData(props.cars);
     }, []);
 
     // const handleSubmit = async (e) => {
     //     e.preventDefault();
     //     isRented == true ? setIsRented(1) : setIsRented(0);
-    //     props.carsPost(name, brand, type, registration, isRented);
     // }
 
     const handleClickAdd = () => {
@@ -72,7 +71,7 @@ const Car = (props) => {
                                     </button>
                                 </td>
                                 <td className="celda">
-                                    <button className="btnDelete" onClick={() => props.carsDelete(id)}>
+                                    <button className="btnDelete" onClick={() => props.carDeleted(id)}>
                                         x
                                     </button>
                                 </td>
@@ -103,9 +102,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     // Users Actions
-    carsGet,
-    carsPost,
-    carsDelete
+    carsData,
+    carDeleted
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Car);

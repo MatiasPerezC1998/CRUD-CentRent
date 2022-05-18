@@ -6,7 +6,7 @@ const url = 'https://localhost:7295/Car/';
 export const CARS_GET_START = "CARS_GET_START";
 export const CARS_GET_SUCCES = "CARS_GET_SUCCES";
 export const CARS_GET_ERROR = "CARS_GET_ERROR";
-export const carsGet = () => (dispatch) => {
+export const carsData = () => (dispatch) => {
 
     dispatch({
         type: CARS_GET_START,
@@ -51,7 +51,7 @@ export const carsGet = () => (dispatch) => {
 export const CARS_POST_START = "CARS_POST_START";
 export const CARS_POST_SUCCES = "CARS_POST_SUCCES";
 export const CARS_POST_ERROR = "CARS_POST_ERROR";
-export const carsPost = (name, brand, type, registration, isRented) => (dispatch) => {
+export const carAdded = (name, brand, type, registration, isRented) => (dispatch) => {
 
     dispatch({
         type: CARS_POST_START,
@@ -102,7 +102,7 @@ export const carsPost = (name, brand, type, registration, isRented) => (dispatch
 export const CARS_UPDATE_START = "CARS_UPDATE_START";
 export const CARS_UPDATE_SUCCES = "CARS_UPDATE_SUCCES";
 export const CARS_UPDATE_ERROR = "CARS_UPDATE_ERROR";
-export const carsUpdate = (id, name, brand, type, registration, isRented) => (dispatch) => {
+export const carUpdated = (id, name, brand, type, registration, isRented) => (dispatch) => {
 
     dispatch({
         type: CARS_UPDATE_START,
@@ -149,7 +149,7 @@ export const carsUpdate = (id, name, brand, type, registration, isRented) => (di
 export const CARS_DELETE_START = "CARS_DELETE_START";
 export const CARS_DELETE_SUCCES = "CARS_DELETE_SUCCES";
 export const CARS_DELETE_ERROR = "CARS_DELETE_ERROR";
-export const carsDelete = (id) => (dispatch) => {
+export const carDeleted = (id) => (dispatch) => {
 
     dispatch({
         type: CARS_DELETE_START,

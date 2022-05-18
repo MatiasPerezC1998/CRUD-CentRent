@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { carsUpdate } from '../../redux/actions/carAction'
+import { carUpdated } from '../../redux/actions/carAction'
 import '../../Styles.css';
 
 const UpdateCar = (props) => {
@@ -21,7 +21,7 @@ const UpdateCar = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsRented(0);
-        props.carsUpdate(id, updateName, updateBrand, updateType, updateRegistration, updateIsRented);
+        props.carUpdated(id, updateName, updateBrand, updateType, updateRegistration, updateIsRented);
         navigate("/Car");
     }
 
@@ -92,7 +92,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    carsUpdate
+    carUpdated
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateCar);

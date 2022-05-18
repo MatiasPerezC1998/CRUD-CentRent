@@ -1,32 +1,31 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { searchGet } from '../redux/actions/searchAction';
-import { carsGet } from '../redux/actions/carAction';
+import { searchCustomer } from '../redux/actions/searchAction';
+import { carsData } from '../redux/actions/carAction';
 
-import store from '../redux/store';
 import '../Styles.css';
 
 const Search = (props) => {
 
     // HOOKS
-    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
 
     // EVENTS
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.searchGet(name);
-        props.carsGet(props.cars);
+        props.searchGet(email);
+        props.carsData(props.cars);
     }
 
     // BODY
     return (
         <div>
             <div>
-                <form className="searchForm" onSubmit={handleSubmit}>
+                <form className="searchCustomerForm" onSubmit={handleSubmit}>
                     Buscar un cliente:
-                    <input type="text" placeholder="Nombre"
-                        onChange={e => setName(e.target.value)}/>
+                    <input type="text" placeholder="Email"
+                        onChange={e => setEmail(e.target.value)}/>
                     <br/><br/>
                     <button type="submit">Enviar</button>
                 </form>
@@ -48,7 +47,7 @@ const Search = (props) => {
                 <br/><br/>
                 <b>Coche Alquilado:</b>&nbsp;
                 {
-                    (props.cars && props.customer.carRentedId != 0) ? props.cars.filter(car => props.customer.carRentedId === car.id)
+                    (props.cars && props.customer.carRentedId !== 0) ? props.cars.filter(car => props.customer.carRentedId === car.id)
                         .map(({ name, registration, id}) => {
                         return <div key={id} value={id}>{registration} ({name})</div>
                     })
@@ -80,10 +79,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     // Search Actions
-    searchGet,
+    searchCustomer,
 
     // Car Actions
-    carsGet
+    carsData
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

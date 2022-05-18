@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { customersUpdate } from '../../redux/actions/customerAction';
-import { carsGet } from '../../redux/actions/carAction';
+import { customerUpdated } from '../../redux/actions/customerAction';
 import '../../Styles.css';
 
 const UpdateCustomer = (props) => {
@@ -22,7 +21,7 @@ const UpdateCustomer = (props) => {
     // EVENTS
     const handleSubmit = async(e) => {
         e.preventDefault();
-        props.customersUpdate(id, updateName, updateSurame, updateEmail, updatePhone, updateDni, updateCarRentedId);
+        props.customerUpdated(id, updateName, updateSurame, updateEmail, updatePhone, updateDni, updateCarRentedId);
         navigate("/Customer");
     }
 
@@ -117,10 +116,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     // Customers Actions
-    customersUpdate,
-
-    // Cars Actions
-    carsGet
+    customerUpdated,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateCustomer);

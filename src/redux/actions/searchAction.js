@@ -6,7 +6,7 @@ const url = 'https://localhost:7295/Customer/';
 export const SEARCH_GET_START = "SEARCH_GET_START";
 export const SEARCH_GET_SUCCES = "SEARCH_GET_SUCCES";
 export const SEARCH_GET_ERROR = "SEARCH_GET_ERROR";
-export const searchGet = (name) => (dispatch) => {
+export const searchCustomer = (email) => (dispatch) => {
 
     dispatch({
         type: SEARCH_GET_START,
@@ -19,7 +19,7 @@ export const searchGet = (name) => (dispatch) => {
 
     const getData = async () => {
         try {
-            const res = await fetch(url + `Name/${name}`);
+            const res = await fetch(url + `Email/${email}`);
             const data = await res.json();
 
             if (res.status !== 200)

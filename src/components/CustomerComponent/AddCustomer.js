@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { customersPost } from '../../redux/actions/customerAction';
-import { carsGet } from '../../redux/actions/carAction';
+import { customerAdded } from '../../redux/actions/customerAction';
 import '../../Styles.css';
 
 const AddCustomer = (props) => {
@@ -20,7 +19,7 @@ const AddCustomer = (props) => {
     // EVENTS
     const handleSubmit = async (e) => {
         e.preventDefault();
-        props.customersPost(name, surname, email, phone, dni, carRentedId);
+        props.customerAdded(name, surname, email, phone, dni, carRentedId);
         navigate("/Customer");
     }
 
@@ -115,10 +114,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     // Customers Actions
-    customersPost,
-
-    // Cars Actions
-    carsGet
+    customerAdded,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddCustomer);

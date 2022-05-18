@@ -1,6 +1,5 @@
-import { Action } from 'history';
 import { connect } from 'react-redux';
-import { useNavigate, Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 function PrivateRoutes(props) {
     return (

@@ -6,7 +6,7 @@ const url = 'https://localhost:7295/Customer/';
 export const CUSTOMERS_GET_START = "CUSTOMERS_GET_START";
 export const CUSTOMERS_GET_SUCCES = "CUSTOMERS_GET_SUCCES";
 export const CUSTOMERS_GET_ERROR = "CUSTOMERS_GET_ERROR";
-export const customersGet = () => (dispatch) => {
+export const customersData = () => (dispatch) => {
     
     dispatch({
         type: CUSTOMERS_GET_START,
@@ -50,7 +50,7 @@ export const customersGet = () => (dispatch) => {
 export const CUSTOMERS_POST_START = "CUSTOMERS_POST_START";
 export const CUSTOMERS_POST_SUCCES = "CUSTOMERS_POST_SUCCES";
 export const CUSTOMERS_POST_ERROR = "CUSTOMERS_POST_ERROR";
-export const  customersPost = (name, surname, email, phone, dni, carRentedId) => (dispatch) => {
+export const  customerAdded = (name, surname, email, phone, dni, carRentedId) => (dispatch) => {
 
     dispatch({
         type: CUSTOMERS_POST_START,
@@ -104,7 +104,7 @@ export const  customersPost = (name, surname, email, phone, dni, carRentedId) =>
 export const CUSTOMERS_UPDATE_START = "CUSTOMERS_UPDATE_START";
 export const CUSTOMERS_UPDATE_SUCCES = "CUSTOMERS_UPDATE_SUCCES";
 export const CUSTOMERS_UPDATE_ERROR = "CUSTOMERS_UPDATE_ERROR";
-export const customersUpdate = (id, name, surname, email, phone, dni, carRentedId) => (dispatch) => {
+export const customerUpdated = (id, name, surname, email, phone, dni, carRentedId) => (dispatch) => {
     
     dispatch({
         type: CUSTOMERS_UPDATE_START,
@@ -151,7 +151,7 @@ export const customersUpdate = (id, name, surname, email, phone, dni, carRentedI
 export const CUSTOMERS_DELETE_START = "CUSTOMERS_DELETE_START";
 export const CUSTOMERS_DELETE_SUCCES = "CUSTOMERS_DELETE_SUCCES";
 export const CUSTOMERS_DELETE_ERROR = "CUSTOMERS_DELETE_ERROR";
-export const customersDelete = (id) => (dispatch) => {
+export const customerDeleted = (id) => (dispatch) => {
     
     dispatch({
         type: CUSTOMERS_DELETE_START,

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { customersGet, customersPost, customersDelete } from '../../redux/actions/customerAction';
-import { carsGet } from '../../redux/actions/carAction';
+import { customersData, customerDeleted } from '../../redux/actions/customerAction';
+import { carsData } from '../../redux/actions/carAction';
 import '../../Styles.css';
 
 const Customer = (props) => {
@@ -13,8 +13,8 @@ const Customer = (props) => {
 
     // EVENTOS
     useEffect(() => {
-        props.customersGet(props.customers);
-        props.carsGet(props.cars);
+        props.customersData(props.customers);
+        props.carsData(props.cars);
     }, []);
 
     const handleClickAdd = () => {
@@ -71,7 +71,7 @@ const Customer = (props) => {
                                     </button>
                                 </td>
                                 <td className="celda">
-                                    <button className="btnDelete"  onClick={() => props.customersDelete(id)}>
+                                    <button className="btnDelete"  onClick={() => props.customerDeleted(id)}>
                                         x
                                     </button>
                                 </td>
@@ -110,12 +110,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     // Customers Actions
-    customersGet,
-    customersPost,
-    customersDelete,
+    customersData,
+    customerDeleted,
 
     // Cars Actions
-    carsGet
+    carsData
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Customer);

@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
-import { login, logout  } from '../redux/actions/loginAction';
-import store from '../redux/store';
 import '../Styles.css';
 
 const Profile = (props) => {

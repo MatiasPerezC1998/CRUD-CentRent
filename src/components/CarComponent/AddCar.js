@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { carsPost } from '../../redux/actions/carAction';
+import { carAdded } from '../../redux/actions/carAction';
 import '../../Styles.css';
 
 const AddCar = (props) => {
@@ -19,7 +19,7 @@ const AddCar = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsRented(0);
-        props.carsPost(name, brand, type, registration, isRented);
+        props.carAdded(name, brand, type, registration, isRented);
         navigate("/Car");
     }
 
@@ -90,7 +90,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    carsPost
+    carAdded
 
 }
 
