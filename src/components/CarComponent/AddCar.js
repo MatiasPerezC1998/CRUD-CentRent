@@ -9,22 +9,16 @@ const AddCar = (props) => {
 
     // HOOKS
     const navigate = useNavigate();
-    const [name, setName] = useState('');
-    const [brand, setBrand] = useState('');
-    const [type, setType] = useState('');
     const [registration, setRegistration] = useState('');
-    const [isRented, setIsRented] = useState('');
-    const [image, setImage] = useState('');
+    const [carTypeId, setCarTypeId] = useState('');
 
     // EVENTS
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsRented(0);
-        props.carAdded(name, brand, type, registration, isRented, image);
+
+        await props.carAdded(registration, carTypeId);
         navigate("/Car");
     }
-
-    console.log(image);
 
     // BODY
     return (
@@ -32,28 +26,7 @@ const AddCar = (props) => {
             <br />
             <form className="form" onSubmit={handleSubmit}>
                 <table className="table">
-                    <tbody>
-                        <tr>
-                            <td className="header">Nombre</td>
-                            <td className="celda">
-                                <input type="text" name={"name"} value={name}
-                                    onChange={e => setName(e.target.value)} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="header">Marca</td>
-                            <td className="celda">
-                                <input type="text" name={"brand"} value={brand}
-                                    onChange={e => setBrand(e.target.value)} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="header">Tipo</td>
-                            <td className="celda">
-                                <input type="text" name={"type"} value={type}
-                                    onChange={e => setType(e.target.value)} />
-                            </td>
-                        </tr>
+                    <tbody>                     
                         <tr>
                             <td className="header">Matrícula</td>
                             <td className="celda">
@@ -62,10 +35,19 @@ const AddCar = (props) => {
                             </td>
                         </tr>
                         <tr>
-                            <td className="header">Imagen</td>
+                            <td className="header">Tipo</td>
                             <td className="celda">
-                                <input type="text" name={"image"} value={image}
-                                    onChange={e => setImage(e.target.value)} />
+                            <select onChange={e => setCarTypeId(e.target.value)}>
+                                <option key={0}></option>
+                                {
+                                    props.carTypes ? props.carTypes.map(({id, model, branch}) => {
+                                        return <option key={id} value={id}>
+                                            {branch} ({model})
+                                        </option>
+                                    }): null
+                                }
+                                
+                            </select>
                             </td>
                         </tr>
                     </tbody>
@@ -87,14 +69,17 @@ const mapStateToProps = (state) => {
         postCars: state.carReducer.postCars,
         updateCars: state.carReducer.updateCars,
         deleteCars: state.carReducer.deleteCars,
-        message: state.carReducer.message,
-        cars: state.carReducer.cars
+        getImage: state.carReducer.getImage,
+        postImage: state.carReducer.postImage,
+        carMessage: state.carReducer.carMessage,
+        imageMessage: state.carReducer.imageMessage,
+        cars: state.carReducer.cars,
+        image: state.carReducer.image
     }
 }
 
 const mapDispatchToProps = {
-    carAdded
-
+    carAdded,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddCar);

@@ -51,7 +51,7 @@ export const carsData = () => (dispatch) => {
 export const CARS_POST_START = "CARS_POST_START";
 export const CARS_POST_SUCCES = "CARS_POST_SUCCES";
 export const CARS_POST_ERROR = "CARS_POST_ERROR";
-export const carAdded = (name, brand, type, registration, isRented, image) => (dispatch) => {
+export const carAdded = (registration, carTypeId) => (dispatch) => {
 
     dispatch({
         type: CARS_POST_START,
@@ -65,7 +65,10 @@ export const carAdded = (name, brand, type, registration, isRented, image) => (d
         try {
             const res = await fetch(url + "create", {
                 method: 'POST',
-                body: getFormData({ name: name, brand: brand, type: type, registration: registration, isRented: isRented, image: image })
+                // headers: {
+                //     'content-type': 'multipart/form-data'
+                // },
+                body: getFormData({ registration: registration, carTypeId: carTypeId })
             });
             const data = await res.json();
 
@@ -98,7 +101,7 @@ export const carAdded = (name, brand, type, registration, isRented, image) => (d
 export const CARS_UPDATE_START = "CARS_UPDATE_START";
 export const CARS_UPDATE_SUCCES = "CARS_UPDATE_SUCCES";
 export const CARS_UPDATE_ERROR = "CARS_UPDATE_ERROR";
-export const carUpdated = (id, name, brand, type, registration, isRented, image) => (dispatch) => {
+export const carUpdated = (id, registration, carTypeId) => (dispatch) => {
 
     dispatch({
         type: CARS_UPDATE_START,
@@ -112,7 +115,10 @@ export const carUpdated = (id, name, brand, type, registration, isRented, image)
         try {
             const res = await fetch(url + 'update', {
                 method: 'POST',
-                body: getFormData({ id, name, brand, type, registration, isRented, image })
+                // headers: {
+                //     'content-type': 'multipart/form-data'
+                // },
+                body: getFormData({ id, registration, carTypeId })
             });
             const data = await res.json();
 

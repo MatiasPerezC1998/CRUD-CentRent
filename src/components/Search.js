@@ -94,8 +94,9 @@ const Search = (props) => {
                 <br/><br/>
                 <b>Imagen:</b>&nbsp;
                 {
-                    (props.searchedCar.image === null) ?
-                        'Sin imagen' : <img className="carImage" src={props.searchedCar.image}/>
+                    (props.searchedCar.image === undefined) ? 
+                        "" : (props.searchedCar.image === null) ? "Sin imagen"
+                            : <img className="carImage" alt={props.searchedCar.image} src={"https://localhost:7295/Car/GetImage?imageUrl=" + props.searchedCar.image}/>
                 }
             </div>
         </div>
@@ -118,9 +119,13 @@ const mapStateToProps = (state) => {
         postCars: state.carReducer.postCars,
         updateCars: state.carReducer.updateCars,
         deleteCars: state.carReducer.deleteCars,
-        carsMessage: state.carReducer.message,
+        getImage: state.carReducer.getImage,
+        postImage: state.carReducer.postImage,
+        carMessage: state.carReducer.carMessage,
+        imageMessage: state.carReducer.imageMessage,
         cars: state.carReducer.cars,
-        car: state.carReducer.car
+        car: state.carReducer.car,
+        image: state.carReducer.image
     }
 }
 

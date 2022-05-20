@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { carUpdated } from '../../redux/actions/carAction'
+import { carUpdated } from '../../redux/actions/carAction';
 import '../../Styles.css';
 
 const UpdateCar = (props) => {
@@ -10,19 +10,15 @@ const UpdateCar = (props) => {
     // HOOKS
     const navigate = useNavigate();
     const { state } = useLocation();
-    const { id, name, brand, type, registration, isRented, image } = state;
-    const [updateName, setName] = useState(name);
-    const [updateBrand, setBrand] = useState(brand);
-    const [updateType, setType] = useState(type);
+    const { id, registration, carTypeId } = state;
     const [updateRegistration, setRegistration] = useState(registration);
-    const [updateIsRented, setIsRented] = useState(isRented);
-    const [updateImage, setImage] = useState((image !== null) ? image : '');
+    const [updateCarTypeId, setCarTypeId] = useState(carTypeId);
 
     // EVENTS
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsRented(0);
-        props.carUpdated(id, updateName, updateBrand, updateType, updateRegistration, updateIsRented, updateImage);
+
+        props.carUpdated(id, updateRegistration, updateCarTypeId);
         navigate("/Car");
     }
 
@@ -32,28 +28,7 @@ const UpdateCar = (props) => {
             <br/>
             <form className="form" onSubmit={handleSubmit}>
                 <table className="table">
-                    <tbody>
-                        <tr>
-                            <td className="header">Nombre</td>
-                            <td className="celda">
-                                <input type="text" name={"name"} value={updateName}
-                                    onChange={e => setName(e.target.value)}/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="header">Marca</td>
-                            <td className="celda">
-                                <input type="text" name={"brand"} value={updateBrand}
-                                    onChange={e => setBrand(e.target.value)}/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="header">Tipo</td>
-                            <td className="celda">
-                                <input type="text" name={"type"} value={updateType}
-                                    onChange={e => setType(e.target.value)}/>
-                            </td>
-                        </tr>
+                    <tbody>                                         
                         <tr>
                             <td className="header">Matrícula</td>
                             <td className="celda">
@@ -62,10 +37,19 @@ const UpdateCar = (props) => {
                             </td>
                         </tr>
                         <tr>
-                            <td className="header">Imagen</td>
+                            <td className="header">Tipo</td>
                             <td className="celda">
-                                <input type="text" name={"image"} value={updateImage}
-                                    onChange={e => setImage(e.target.value)} />
+                            <select onChange={e => setCarTypeId(e.target.value)} defaultValue={updateCarTypeId}>
+                                <option key={0}></option>
+                                {
+                                    props.carTypes ? props.carTypes.map(({id, model, branch}) => {
+                                        return <option key={id} value={id}>
+                                            {branch} ({model})
+                                        </option>
+                                    }): null
+                                }
+                                
+                            </select>
                             </td>
                         </tr>
                     </tbody>
@@ -87,13 +71,17 @@ const mapStateToProps = (state) => {
         postCars: state.carReducer.postCars,
         updateCars: state.carReducer.updateCars,
         deleteCars: state.carReducer.deleteCars,
-        message: state.carReducer.message,
-        cars: state.carReducer.cars
+        getImage: state.carReducer.getImage,
+        postImage: state.carReducer.postImage,
+        carMessage: state.carReducer.carMessage,
+        imageMessage: state.carReducer.imageMessage,
+        cars: state.carReducer.cars,
+        image: state.carReducer.image
     }
 }
 
 const mapDispatchToProps = {
-    carUpdated
+    carUpdated,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateCar);

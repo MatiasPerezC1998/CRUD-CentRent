@@ -11,18 +11,18 @@ const Car = (props) => {
     const navigate = useNavigate();
 
     // EVENTOS
-    useEffect(() => {
-        props.carsData(props.cars);
+    useEffect( () => {
+         props.carsData(props.cars);
     }, []);
 
     const handleClickAdd = () => {
         navigate("/AddCar");
     }
 
-    const handleClickUpdate = (id, name, brand, type, registration, isRented, image) => {
+    const handleClickUpdate = (id, model, brand, type, registration, isRented, image) => {
         navigate("/UpdateCar", {
             state: {
-                id, name, brand, type, registration, isRented, image
+                id, model, brand, type, registration, isRented, image
             }
         });
     }
@@ -34,8 +34,8 @@ const Car = (props) => {
             <table className="table">
                 <thead>
                     <tr>
-                        <td className="header">Nombre</td>
                         <td className="header">Marca</td>
+                        <td className="header">Modelo</td>
                         <td className="header">Tipo</td>
                         <td className="header">Matrícula</td>
                         <td className="header">Alquilado</td>
@@ -46,10 +46,10 @@ const Car = (props) => {
                 </thead>
                 <tbody>
                     {
-                        props.cars ? props.cars.map(({ id, name, brand, type, registration, isRented, image }) => {
+                        props.cars ? props.cars.map(({ id, model, brand, type, registration, isRented, image }) => {
                             return <tr className="celda" key={registration}>
-                                <td className="celda">{name}</td>
                                 <td className="celda">{brand}</td>
+                                <td className="celda">{model}</td>
                                 <td className="celda">{type}</td>
                                 <td className="celda">{registration}</td>
                                 <td className="celda">
@@ -58,14 +58,16 @@ const Car = (props) => {
                                     }
                                 </td>
                                 <td className="celda">
+                {/* {console.log(image)} */}
+
                                     {
                                         (image === null) ?
-                                            'Sin imagen' : <img className="carImage" src={image}/>
+                                            'Sin imagen' : <img className="carImage" alt={image} src={"https://localhost:7295/Car/GetImage?imageUrl=" + image}/>
                                     }
                                 </td>
                                 <td className="celda">
                                     <button className="btnUpdate" name={"btnUpdate"+id}
-                                        onClick={() => handleClickUpdate(id, name, brand, type, registration, isRented, image)}>
+                                        onClick={() => handleClickUpdate(id, model, brand, type, registration, isRented, image)}>
                                         Modificar
                                     </button>
                                 </td>
@@ -94,15 +96,19 @@ const mapStateToProps = (state) => {
         postCars: state.carReducer.postCars,
         updateCars: state.carReducer.updateCars,
         deleteCars: state.carReducer.deleteCars,
-        message: state.carReducer.message,
-        cars: state.carReducer.cars
+        getImage: state.carReducer.getImage,
+        postImage: state.carReducer.postImage,
+        carMessage: state.carReducer.carMessage,
+        imageMessage: state.carReducer.imageMessage,
+        cars: state.carReducer.cars,
+        image: state.carReducer.image,
     }
 }
 
 const mapDispatchToProps = {
-    // Users Actions
+    // Cars Actions
     carsData,
-    carDeleted
+    carDeleted,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Car);
