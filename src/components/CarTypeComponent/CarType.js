@@ -74,7 +74,7 @@ const CarType = (props) => {
                                 <td className="celda">{brand}</td>
                                 <td className="celda">{model}</td>
                                 <td className="celda">{type}</td>
-                                <td className="celda">{/*availableCars.length*/}{props.availableCars.filter(x=>x.carTypeId == id).length}/{carCount}</td>
+                                <td className="celda">{props.availableCars.filter(x=>x.carTypeId == id).length}/{carCount}</td>
                                 <td className="celda">
                                     {
                                         (image === null) ?
