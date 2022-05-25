@@ -55,8 +55,8 @@ const Search = (props) => {
                 <b>Coche Alquilado:</b>&nbsp;
                 {
                     (props.cars && props.customer.carRentedId !== 0) ? props.cars.filter(car => props.customer.carRentedId === car.id)
-                        .map(({ name, registration, id}) => {
-                        return <div key={id} value={id}>{registration} ({name})</div>
+                        .map(({ registration, model, id}) => {
+                        return <div key={id} value={id}>{registration} ({model})</div>
                     })
                     : 'No tiene ningun coche alquilado'
                 }

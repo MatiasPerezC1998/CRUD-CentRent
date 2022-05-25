@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { customerAdded } from '../../redux/actions/customerAction';
+import { carsData } from '../../redux/actions/carAction';
 import '../../Styles.css';
 
 const AddCustomer = (props) => {
@@ -17,6 +18,10 @@ const AddCustomer = (props) => {
     const [carRentedId, setCarRentedId] = useState('');
 
     // EVENTS
+    useEffect( () => {
+        props.carsData(props.cars);
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         props.customerAdded(name, surname, email, phone, dni, carRentedId);
@@ -68,17 +73,17 @@ const AddCustomer = (props) => {
                         <tr>
                             <td className="header">Coche Alquilado</td>
                             <td className="celda">
-                            <select onChange={e => setCarRentedId(e.target.value)}>
-                                <option key={0}></option>
-                                {
-                                    props.cars ? props.cars.filter(name => !name.isRented).map(({ name, registration, id}) => {
-                                        return <option key={id} value={id}>
-                                            {registration} ({name})
-                                        </option>
-                                    }): null
-                                }
-                                
-                            </select>
+                                <select onChange={e => setCarRentedId(e.target.value)}>
+                                    <option key={0}></option>
+                                    {
+                                        props.cars ? props.cars.filter(name => !name.isRented).map(({ registration, model, id}) => {
+                                            return <option key={id} value={id}>
+                                                {registration} ({model})
+                                            </option>
+                                        }): null
+                                    }
+                                    
+                                </select>
                             </td>
                         </tr>
                     </tbody>
@@ -99,7 +104,7 @@ const mapStateToProps = (state) => {
         postCustomers: state.customerReducer.postCustomers,
         updateCustomers: state.customerReducer.updateCustomers,
         deleteCustomers: state.customerReducer.deleteCustomers,
-        message: state.customerReducer.message,
+        customerMessage: state.customerReducer.message,
         customers: state.customerReducer.customers,
 
         // Cars InitialState
@@ -107,7 +112,7 @@ const mapStateToProps = (state) => {
         postCars: state.carReducer.postCars,
         updateCars: state.carReducer.updateCars,
         deleteCars: state.carReducer.deleteCars,
-        message: state.carReducer.message,
+        carMessage: state.carReducer.message,
         cars: state.carReducer.cars
     }
 }
@@ -115,6 +120,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     // Customers Actions
     customerAdded,
+
+    // Cars Actions
+    carsData,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddCustomer);

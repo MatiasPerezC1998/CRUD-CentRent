@@ -2,35 +2,31 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { carUpdated } from '../../redux/actions/carAction';
+import { carTypeUpdated } from '../../redux/actions/carTypeAction';
 import '../../Styles.css';
 
-const UpdateCar = (props) => {
+const UpdateCarType = (props) => {
 
     // HOOKS
     const navigate = useNavigate();
     const { state } = useLocation();
-    const { id, model, brand, type, registration, isRented, image } = state;
-    const [updateModel, setModel] = useState(model);
+    const { id, brand, model, type, image } = state;
     const [updateBrand, setBrand] = useState(brand);
+    const [updateModel, setModel] = useState(model);
     const [updateType, setType] = useState(type);
-    const [updateRegistration, setRegistration] = useState(registration);
-    const [updateIsRented, setIsRented] = useState(isRented);
     const [updateImage, setImage] = useState((image !== null) ? image : '');
 
     // EVENTS
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setIsRented(0);
-
         const data = new FormData();
         data.append('FormFile', updateImage);
         data.append('FileName', updateImage.name);
         console.log(updateImage);
 
-        props.carUpdated(id, updateModel, updateBrand, updateType, updateRegistration, updateIsRented, updateImage);
-        navigate("/Car");
+        props.carTypeUpdated(id, updateBrand, updateModel, updateType, updateImage);
+        navigate("/CarType");
     }
 
     const handleChangeImage = async (e) => {
@@ -66,19 +62,10 @@ const UpdateCar = (props) => {
                             </td>
                         </tr>
                         <tr>
-                            <td className="header">Matrícula</td>
-                            <td className="celda">
-                                <input type="text" name={"registration"} value={updateRegistration}
-                                    onChange={e => setRegistration(e.target.value)}/>
-                            </td>
-                        </tr>
-                        <tr>
                             <td className="header">Imagen</td>
                             <td className="celda">
                                 <input type="file" name="image"
                                     onChange={handleChangeImage} />
-                                {/* <input type="text" name={"image"} value={updateImage}
-                                    onChange={e => setImage(e.target.value)} /> */}
                             </td>
                         </tr>
                     </tbody>
@@ -95,22 +82,18 @@ const UpdateCar = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        // Cars InitialState
-        getCars: state.carReducer.getCars,
-        postCars: state.carReducer.postCars,
-        updateCars: state.carReducer.updateCars,
-        deleteCars: state.carReducer.deleteCars,
-        getImage: state.carReducer.getImage,
-        postImage: state.carReducer.postImage,
-        carMessage: state.carReducer.carMessage,
-        imageMessage: state.carReducer.imageMessage,
-        cars: state.carReducer.cars,
-        image: state.carReducer.image
+        // CarTypes InitialState
+        getCarTypes: state.carTypeReducer.getCarTypes,
+        postCarTypes: state.carTypeReducer.postCarTypes,
+        updateCarTypes: state.carTypeReducer.updateCarTypes,
+        deleteCarTypes: state.carTypeReducer.deleteCarTypes,
+        message: state.carTypeReducer.message,
+        carTypes: state.carTypeReducer.carTypes
     }
 }
 
 const mapDispatchToProps = {
-    carUpdated,
+    carTypeUpdated,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateCar);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateCarType);

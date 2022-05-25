@@ -1,8 +1,7 @@
 import { CARS_GET_START, CARS_GET_SUCCES, CARS_GET_ERROR,
     CARS_POST_START, CARS_POST_SUCCES, CARS_POST_ERROR,
     CARS_UPDATE_START, CARS_UPDATE_SUCCES, CARS_UPDATE_ERROR,
-    CARS_DELETE_START, CARS_DELETE_SUCCES, CARS_DELETE_ERROR,
-    IMAGE_POST_START, IMAGE_POST_SUCCES, IMAGE_POST_ERROR
+    CARS_DELETE_START, CARS_DELETE_SUCCES, CARS_DELETE_ERROR
 } from "../actions/carAction";
 
 const initialState = {
@@ -10,8 +9,6 @@ const initialState = {
     postCars: false,
     updateCars: false,
     deleteCars: false,
-    getImage: false,
-    postImage: false,
     carMessage: '',
     imageMessage: '',
     image: {},

@@ -4,15 +4,17 @@ import thunk from "redux-thunk"; //instalar
 
 import loginReducer from "./reducers/loginReducer";
 import registerReducer from "./reducers/registerReducer";
-import carReducer from "./reducers/carReducer";
 import customerReducer from "./reducers/customerReducer";
+import carReducer from "./reducers/carReducer";
+import carTypeReducer from "./reducers/carTypeReducer";
 import searchReducer from "./reducers/searchReducer";
 
 const reducer = combineReducers({
     loginReducer,
     registerReducer,
-    carReducer,
     customerReducer,
+    carReducer,
+    carTypeReducer,
     searchReducer,
 })
 

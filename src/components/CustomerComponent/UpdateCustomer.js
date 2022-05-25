@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { customerUpdated } from '../../redux/actions/customerAction';
+import { carsData } from '../../redux/actions/carAction';
 import '../../Styles.css';
 
 const UpdateCustomer = (props) => {
@@ -19,6 +20,10 @@ const UpdateCustomer = (props) => {
     const [updateCarRentedId, setCarRentedId] = useState(carRentedId);
 
     // EVENTS
+    useEffect( () => {
+        props.carsData(props.cars);
+    }, []);
+    
     const handleSubmit = async(e) => {
         e.preventDefault();
         props.customerUpdated(id, updateName, updateSurame, updateEmail, updatePhone, updateDni, updateCarRentedId);
@@ -71,11 +76,11 @@ const UpdateCustomer = (props) => {
                             <td className="header">Coche Alquilado</td>
                             <td className="celda">
                                 <select onChange={e => setCarRentedId(e.target.value)} defaultValue={updateCarRentedId}>
-                                <option key={0}></option>
+                                    <option key={0}></option>
                                     {
-                                        props.cars ? props.cars.filter(car => car.id === updateCarRentedId || !car.isRented).map(({ name, registration, id }) => {
+                                        props.cars ? props.cars.filter(car => car.id === updateCarRentedId || !car.isRented).map(({ registration, model, id }) => {
                                             return <option key={id} value={id}>
-                                                {registration} ({name})
+                                                {registration} ({model})
                                             </option>
                                         }): null
                                     }
@@ -101,7 +106,7 @@ const mapStateToProps = (state) => {
         postCustomers: state.customerReducer.postCustomers,
         updateCustomers: state.customerReducer.updateCustomers,
         deleteCustomers: state.customerReducer.deleteCustomers,
-        message: state.customerReducer.message,
+        customerMessage: state.customerReducer.message,
         customers: state.customerReducer.customers,
 
         // Cars InitialState
@@ -109,7 +114,7 @@ const mapStateToProps = (state) => {
         postCars: state.carReducer.postCars,
         updateCars: state.carReducer.updateCars,
         deleteCars: state.carReducer.deleteCars,
-        message: state.carReducer.message,
+        carMessage: state.carReducer.message,
         cars: state.carReducer.cars
     }
 }
@@ -117,6 +122,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     // Customers Actions
     customerUpdated,
+
+    // Cars Actions
+    carsData,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateCustomer);

@@ -2,33 +2,28 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { carAdded } from '../../redux/actions/carAction';
+import { carTypeAdded } from '../../redux/actions/carTypeAction';
 import '../../Styles.css';
 
-const AddCar = (props) => {
+const AddCarType = (props) => {
 
     // HOOKS
     const navigate = useNavigate();
-    const [model, setModel] = useState('');
     const [brand, setBrand] = useState('');
+    const [model, setModel] = useState('');
     const [type, setType] = useState('');
-    const [registration, setRegistration] = useState('');
-    const [isRented, setIsRented] = useState('');
     const [image, setImage] = useState('');
 
     // EVENTS
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setIsRented(0);
-
         const data = new FormData();
         data.append('FormFile', image);
         data.append('FileName', image.name);
-        console.log(image)
 
-        await props.carAdded(model, brand, type, registration, isRented, image);
-        navigate("/Car");
+        await props.carTypeAdded(brand, model, type, image);
+        navigate("/CarType");
     }
 
     const handleChangeImage = async (e) => {
@@ -67,13 +62,6 @@ const AddCar = (props) => {
                             </td>
                         </tr>
                         <tr>
-                            <td className="header">Matrícula</td>
-                            <td className="celda">
-                                <input type="text" name={"registration"} value={registration}
-                                    onChange={e => setRegistration(e.target.value)} />
-                            </td>
-                        </tr>
-                        <tr>
                             <td className="header">Imagen</td>
                             <td className="celda">
                                 <input type="file" name="image"
@@ -94,22 +82,18 @@ const AddCar = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        // Cars InitialState
-        getCars: state.carReducer.getCars,
-        postCars: state.carReducer.postCars,
-        updateCars: state.carReducer.updateCars,
-        deleteCars: state.carReducer.deleteCars,
-        getImage: state.carReducer.getImage,
-        postImage: state.carReducer.postImage,
-        carMessage: state.carReducer.carMessage,
-        imageMessage: state.carReducer.imageMessage,
-        cars: state.carReducer.cars,
-        image: state.carReducer.image
+        // CarTypes InitialState
+        getCarTypes: state.carTypeReducer.getCarTypes,
+        postCarTypes: state.carTypeReducer.postCarTypes,
+        updateCarTypes: state.carTypeReducer.updateCarTypes,
+        deleteCarTypes: state.carTypeReducer.deleteCarTypes,
+        message: state.carTypeReducer.message,
+        carTypes: state.carTypeReducer.carTypes
     }
 }
 
 const mapDispatchToProps = {
-    carAdded,
+    carTypeAdded,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddCar);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCarType);

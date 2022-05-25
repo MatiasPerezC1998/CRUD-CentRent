@@ -36,10 +36,11 @@ function Navbar(props) {
 
       <img src={logo} className="logo" alt="logo"/>
 
-      <Link className="link" to="/Search">Search</Link>
-      <Link className="link" to="/Profile">Profile</Link>
-      <Link className="link" to="/Car">Cars</Link>
-      <Link className="link" to="/Customer">Customers</Link>
+      <Link className="link" to="/Search">Buscar</Link>
+      <Link className="link" to="/Profile">Perfil</Link>
+      <Link className="link" to="/CarType">Tipos de Coches</Link>
+      <Link className="link" to="/Car">Coches</Link>
+      <Link className="link" to="/Customer">Clientes</Link>
 
     </div>
   );

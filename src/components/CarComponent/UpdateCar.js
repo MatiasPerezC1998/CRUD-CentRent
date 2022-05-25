@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { carUpdated } from '../../redux/actions/carAction';
+import { carTypeData } from '../../redux/actions/carTypeAction';
 import '../../Styles.css';
 
 const UpdateCar = (props) => {
@@ -15,12 +16,20 @@ const UpdateCar = (props) => {
     const [updateCarTypeId, setCarTypeId] = useState(carTypeId);
 
     // EVENTS
+    useEffect( () => {
+        props.carTypeData(props.carTypes);
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         props.carUpdated(id, updateRegistration, updateCarTypeId);
         navigate("/Car");
     }
+
+    console.log(updateRegistration);
+    console.log(carTypeId);
+    console.log(updateCarTypeId);
 
     // BODY
     return (
@@ -42,9 +51,9 @@ const UpdateCar = (props) => {
                             <select onChange={e => setCarTypeId(e.target.value)} defaultValue={updateCarTypeId}>
                                 <option key={0}></option>
                                 {
-                                    props.carTypes ? props.carTypes.map(({id, model, branch}) => {
+                                    props.carTypes ? props.carTypes.map(({id, model, brand}) => {
                                         return <option key={id} value={id}>
-                                            {branch} ({model})
+                                            {model} ({brand})
                                         </option>
                                     }): null
                                 }
@@ -71,17 +80,23 @@ const mapStateToProps = (state) => {
         postCars: state.carReducer.postCars,
         updateCars: state.carReducer.updateCars,
         deleteCars: state.carReducer.deleteCars,
-        getImage: state.carReducer.getImage,
-        postImage: state.carReducer.postImage,
-        carMessage: state.carReducer.carMessage,
-        imageMessage: state.carReducer.imageMessage,
+        carMessage: state.carReducer.message,
         cars: state.carReducer.cars,
-        image: state.carReducer.image
+
+        // CarTypes InitialState
+        getCarTypes: state.carTypeReducer.getCarTypes,
+        postCarTypes: state.carTypeReducer.postCarTypes,
+        updateCarTypes: state.carTypeReducer.updateCarTypes,
+        deleteCarTypes: state.carTypeReducer.deleteCarTypes,
+        message: state.carTypeReducer.message,
+        carTypes: state.carTypeReducer.carTypes,
+        carType: state.carTypeReducer.carType,
     }
 }
 
 const mapDispatchToProps = {
     carUpdated,
+    carTypeData
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateCar);

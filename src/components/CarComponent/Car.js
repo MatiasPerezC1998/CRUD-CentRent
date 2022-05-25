@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { toHaveDescription } from '@testing-library/jest-dom/dist/matchers';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,22 +10,31 @@ const Car = (props) => {
 
     // HOOKS
     const navigate = useNavigate();
+    const [cars, setCars] = useState([]);
 
     // EVENTOS
-    useEffect( () => {
-         props.carsData(props.cars);
+    useEffect(() => {
+        props.carsData(props.cars);
+        setCars(props.cars);
     }, []);
 
     const handleClickAdd = () => {
         navigate("/AddCar");
     }
 
-    const handleClickUpdate = (id, model, brand, type, registration, isRented, image) => {
+    const handleClickUpdate = (id, brand, model, type, registration, isRented, image) => {
         navigate("/UpdateCar", {
             state: {
                 id, model, brand, type, registration, isRented, image
             }
         });
+    }
+
+    const filterCars = (type, isRented) => {
+        var carsFiltered = props.cars.filter(x => x.type == type && x.isRented == isRented);
+        if (carsFiltered.length > 0) {
+            setCars(carsFiltered);
+        }
     }
 
     // BODY (TABLA)
@@ -46,7 +56,8 @@ const Car = (props) => {
                 </thead>
                 <tbody>
                     {
-                        props.cars ? props.cars.map(({ id, model, brand, type, registration, isRented, image }) => {
+                        cars ? cars.map(({ id, model, brand, type, registration, isRented, image }) => {
+                            console.log(cars);
                             return <tr className="celda" key={registration}>
                                 <td className="celda">{brand}</td>
                                 <td className="celda">{model}</td>
@@ -54,19 +65,17 @@ const Car = (props) => {
                                 <td className="celda">{registration}</td>
                                 <td className="celda">
                                     {
-                                        (isRented===1) ? "Si" : "No"
+                                        (isRented === 1) ? "Si" : "No"
                                     }
                                 </td>
                                 <td className="celda">
-                {/* {console.log(image)} */}
-
                                     {
                                         (image === null) ?
-                                            'Sin imagen' : <img className="carImage" alt={image} src={"https://localhost:7295/Car/GetImage?imageUrl=" + image}/>
+                                            'Sin imagen' : <img className="carImage" alt={image} src={"https://localhost:7295/Car/GetImage?imageUrl=" + image} />
                                     }
                                 </td>
                                 <td className="celda">
-                                    <button className="btnUpdate" name={"btnUpdate"+id}
+                                    <button className="btnUpdate" name={"btnUpdate" + id}
                                         onClick={() => handleClickUpdate(id, model, brand, type, registration, isRented, image)}>
                                         Modificar
                                     </button>
@@ -96,12 +105,8 @@ const mapStateToProps = (state) => {
         postCars: state.carReducer.postCars,
         updateCars: state.carReducer.updateCars,
         deleteCars: state.carReducer.deleteCars,
-        getImage: state.carReducer.getImage,
-        postImage: state.carReducer.postImage,
         carMessage: state.carReducer.carMessage,
-        imageMessage: state.carReducer.imageMessage,
         cars: state.carReducer.cars,
-        image: state.carReducer.image,
     }
 }
 
