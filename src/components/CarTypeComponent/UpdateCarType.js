@@ -23,7 +23,6 @@ const UpdateCarType = (props) => {
         const data = new FormData();
         data.append('FormFile', updateImage);
         data.append('FileName', updateImage.name);
-        console.log(updateImage);
 
         props.carTypeUpdated(id, updateBrand, updateModel, updateType, updateImage);
         navigate("/CarType");

@@ -30,9 +30,6 @@ const AddCarType = (props) => {
         setImage(e.target.files[0]);
     }
 
-    console.log(image);
-    console.log(image.name);
-
     // BODY
     return (
         <div>

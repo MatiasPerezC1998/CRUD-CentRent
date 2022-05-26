@@ -10,6 +10,7 @@ import Page from "./components/Page";
 import Car from "./components/CarComponent/Car";
 import AddCar from "./components/CarComponent/AddCar";
 import UpdateCar from "./components/CarComponent/UpdateCar";
+import AvailableCarsForm from "./components/CarComponent/AvailableCarsForm";
 import Customer from "./components/CustomerComponent/Customer";
 import AddCustomer from "./components/CustomerComponent/AddCustomer";
 import UpdateCustomer from "./components/CustomerComponent/UpdateCustomer";
@@ -43,6 +44,7 @@ function App ({token}) {
                 <Route path="/Car" element={<Car/>} />
                 <Route path="/AddCar" element={<AddCar/>} />
                 <Route path="/UpdateCar" element={<UpdateCar/>} />
+                <Route path="/AvailableCarsForm" element={<AvailableCarsForm/>} />
                 <Route path="/Customer" element={<Customer/>} />
                 <Route path="/AddCustomer" element={<AddCustomer/>} />
                 <Route path="/UpdateCustomer" element={<UpdateCustomer/>} />

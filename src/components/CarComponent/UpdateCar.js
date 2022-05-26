@@ -27,10 +27,6 @@ const UpdateCar = (props) => {
         navigate("/Car");
     }
 
-    console.log(updateRegistration);
-    console.log(carTypeId);
-    console.log(updateCarTypeId);
-
     // BODY
     return (
         <div>
@@ -50,6 +46,8 @@ const UpdateCar = (props) => {
                             <td className="celda">
                             <select onChange={e => setCarTypeId(e.target.value)} defaultValue={updateCarTypeId}>
                                 <option key={0}></option>
+                                {console.log(props.carTypes)}
+                                {console.log(updateCarTypeId)}
                                 {
                                     props.carTypes ? props.carTypes.map(({id, model, brand}) => {
                                         return <option key={id} value={id}>

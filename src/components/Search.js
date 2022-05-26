@@ -54,11 +54,11 @@ const Search = (props) => {
                 <br/><br/>
                 <b>Coche Alquilado:</b>&nbsp;
                 {
-                    (props.cars && props.customer.carRentedId !== 0) ? props.cars.filter(car => props.customer.carRentedId === car.id)
-                        .map(({ registration, model, id}) => {
-                        return <div key={id} value={id}>{registration} ({model})</div>
-                    })
-                    : 'No tiene ningun coche alquilado'
+                    (props.cars && props.customer.carRentedId !== 0) ?
+                        props.cars.filter(car => props.customer.carRentedId === car.id)
+                            .map(({ registration, model, id}) => {
+                                return <div key={id} value={id}>{registration} ({model})</div>
+                            }) : 'No tiene ningun coche alquilado'
                 }
             </div>
 
@@ -85,11 +85,11 @@ const Search = (props) => {
                 <br/><br/>
                 <b>Matrícula:</b>&nbsp;{props.searchedCar.registration}
                 <br/><br/>
-                <b>Alquilado:</b>&nbsp;
+                <b>Disponible:</b>&nbsp;
                 {
                     (props.searchedCar.isRented === undefined) ? 
-                        "" : (props.searchedCar.isRented === 1) ?
-                            'El coche está alquilado' : 'Coche disponible'
+                        "" : (props.searchedCar.isRented === 0) ?
+                            '✔️' : '❌'
                 }
                 <br/><br/>
                 <b>Imagen:</b>&nbsp;

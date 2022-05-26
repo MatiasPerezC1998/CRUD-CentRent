@@ -8,25 +8,6 @@ import '../../Styles.css';
 
 const CarType = (props) => {
 
-    // const carCountAvailable = props.cars.filter(car => car.model === props.carTypes.filter(carType => carType.model));
-    
-    // const carModels = props.carTypes.map(carType => carType.model);
-    // const availableCars = carModels.filter(car => car.id === props.cars.updateCarRentedId || !car.isRented);
-    
-    // const availableCars = foreach(props.carTypes.model in availableCarsModels)
-    // {
-    // props.cars.filter(carType => carType.model === props.cars.filter(car => car.model) && props.cars.isRented == 0);
-    // }
-
-    // const availableCars = props.cars.filter(car => car.isRented == 0 && car.model);
-
-    // // console.log(carCountAvailable);
-    // console.log(props.cars);
-    // console.log(props.cars.filter(car => car.isRented == 0 && car.model));
-    // console.log(props.carTypes.filter(carType => carType.model));
-
-    // const availableCars = availableCarsData.data;
-
     // HOOKS
     const navigate = useNavigate();
 
@@ -66,15 +47,13 @@ const CarType = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {console.log(props.availableCars)}
                     {
                         props.carTypes ? props.carTypes.map(({ id, brand, model, type, carCount, image }) => {
-                            // console.log(props.carTypes);
                             return <tr className="celda" key={model}>
                                 <td className="celda">{brand}</td>
                                 <td className="celda">{model}</td>
                                 <td className="celda">{type}</td>
-                                <td className="celda">{props.availableCars.filter(x=>x.carTypeId == id).length}/{carCount}</td>
+                                <td className="celda">{props.availableCars.filter(x=>x.carTypeId === id).length}/{carCount}</td>
                                 <td className="celda">
                                     {
                                         (image === null) ?
