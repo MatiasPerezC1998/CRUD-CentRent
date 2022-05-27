@@ -70,7 +70,7 @@ const Car = (props) => {
                                 <td className="celda">
                                     {
                                         (image === null) ?
-                                            'Sin imagen' : <img className="carImage" alt={image} src={"https://localhost:7295/Car/GetImage?imageUrl=" + image} />
+                                            'Sin imagen' : <img className="carImage" alt={image} src={"https://localhost:7295/Car/GetImage?imageUrl=" + image + "&Authorization=Bearer " + localStorage.getItem("token")} />
                                     }
                                 </td>
                                 <td className="celda">
