@@ -18,7 +18,11 @@ export const customersData = () => (dispatch) => {
 
     const getData = async () => {
         try {
-            const res = await fetch(url + "getAll");
+            const res = await fetch(url + "getAll", {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                }
+            });
             const data = await res.json();
 
             if (res.status !== 200)
@@ -64,10 +68,9 @@ export const  customerAdded = (name, surname, email, phone, dni, carRentedId) =>
         try {
             const res = await fetch (url + "create", {
                 method: 'POST',
-                // headers: {
-                //     'Accept': 'multipart/form-data',
-                //     'Content-Type': 'application/json'
-                // },
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                },
                 body: getFormData({ name: name, surname: surname, email: email, phone: phone, dni: dni, carRentedId: carRentedId })
             });
             const data = await res.json();
@@ -118,6 +121,9 @@ export const customerUpdated = (id, name, surname, email, phone, dni, carRentedI
         try {
             const res = await fetch(url + 'update', {
                 method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                },
                 body: getFormData({ id, name, surname, email, phone, dni, carRentedId })
             });
             const data = await res.json();
@@ -165,6 +171,9 @@ export const customerDeleted = (id) => (dispatch) => {
         try {
             const res = await fetch(url + "delete", {
                 method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                },
                 body: getFormData({ id: id }),
             });
 

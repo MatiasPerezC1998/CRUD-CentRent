@@ -34,6 +34,8 @@ const CarType = (props) => {
     return (
         <div>
             <br />
+            <button className="form" onClick={handleClickAdd}>Añadir Tipo de Coche</button>
+            <br /><br />
             <table className="table">
                 <thead>
                     <tr>
@@ -76,8 +78,6 @@ const CarType = (props) => {
                     }
                 </tbody>
             </table>
-            <br /><br />
-            <button className="form" onClick={handleClickAdd}>Añadir Tipo de Coche</button>
         </div>
     );
 

@@ -39,6 +39,8 @@ const Car = (props) => {
             <br/>
             <button className="form" onClick={handleClickNavigate}>Mostrar coches disponibles</button>
             <br /><br />
+            <button className="form" onClick={handleClickAdd}>Añadir Coche</button>
+            <br /><br />
             <table className="table">
                 <thead>
                     <tr>
@@ -88,8 +90,6 @@ const Car = (props) => {
                     }
                 </tbody>
             </table>
-            <br /><br />
-            <button className="form" onClick={handleClickAdd}>Añadir Coche</button>
         </div>
     );
 

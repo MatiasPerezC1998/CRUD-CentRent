@@ -33,6 +33,8 @@ const Customer = (props) => {
     return (
         <div>
             <br />
+            <button className="form" onClick={handleClickAdd}>Añadir Cliente</button>
+            <br /><br />
             <table className="table">
                 <thead>
                     <tr>
@@ -81,8 +83,6 @@ const Customer = (props) => {
                     }
                 </tbody>
             </table>
-            <br /><br />
-            <button className="form" onClick={handleClickAdd}>Añadir Cliente</button>
         </div>
     );
 }

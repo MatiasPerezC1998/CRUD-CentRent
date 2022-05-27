@@ -18,7 +18,11 @@ export const carsData = () => (dispatch) => {
 
     const getData = async () => {
         try {
-            const res = await fetch(url + "getAll");
+            const res = await fetch(url + "getAll", {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                }
+            });
             const data = await res.json();
 
             if (res.status !== 200)
@@ -65,9 +69,9 @@ export const carAdded = (registration, carTypeId) => (dispatch) => {
         try {
             const res = await fetch(url + "create", {
                 method: 'POST',
-                // headers: {
-                //     'content-type': 'multipart/form-data'
-                // },
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                },
                 body: getFormData({ registration: registration, carTypeId: carTypeId })
             });
             const data = await res.json();
@@ -115,9 +119,9 @@ export const carUpdated = (id, registration, carTypeId) => (dispatch) => {
         try {
             const res = await fetch(url + 'update', {
                 method: 'POST',
-                // headers: {
-                //     'content-type': 'multipart/form-data'
-                // },
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                },
                 body: getFormData({ id, registration, carTypeId })
             });
             const data = await res.json();
@@ -166,6 +170,9 @@ export const carDeleted = (id) => (dispatch) => {
         try {
             const res = await fetch(url + "delete", {
                 method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                },
                 body: getFormData({ id: id }),
             });
 

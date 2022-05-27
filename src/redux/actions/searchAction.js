@@ -19,7 +19,11 @@ export const searchCustomer = (email) => (dispatch) => {
 
     const getCustomerData = async () => {
         try {
-            const res = await fetch(url + `Customer/Email/${email}`);
+            const res = await fetch(url + `Customer/Email/${email}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                }
+            });
             const data = await res.json();
 
             if (res.status !== 200)
@@ -66,7 +70,11 @@ export const searchCar = (registration) => (dispatch) => {
 
     const getCarData = async () => {
         try {
-            const res = await fetch(url + `Car/Registration/${registration}`);
+            const res = await fetch(url + `Car/Registration/${registration}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                }
+            });
             const data = await res.json();
 
             if (res.status !== 200)
